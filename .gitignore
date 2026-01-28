@@ -1,0 +1,45 @@
+# Android / Gradle
+.gradle
+/build
+**/build/
+local.properties
+.externalNativeBuild
+.cxx
+
+# APK / Bundle
+*.apk
+*.aab
+
+# IntelliJ / Android Studio
+*.iml
+.idea/
+.idea/caches
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# VS Code
+.vscode
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Keystore
+*.jks
+*.keystore
+
+# Screenshots
+/captures
+
+# Documentation drafts (internal)
+Implementasi_Chat_Bluetooth.md
+Implementasi_LoRa_Broadcast.md
+implementation_plan.md
+task.md
+walkthrough.md
+arsitektur.md
