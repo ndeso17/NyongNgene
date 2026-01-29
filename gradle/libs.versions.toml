@@ -13,6 +13,7 @@ room = "2.6.1"
 material = "1.11.0"
 
 usbSerial = "3.7.3"
+osmdroid = "6.1.18"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,6 +34,9 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+osmdroid-android = { group = "org.osmdroid", name = "osmdroid-android", version.ref = "osmdroid" }
+ktor-server-core = { group = "io.ktor", name = "ktor-server-core", version = "2.3.8" }
+ktor-server-netty = { group = "io.ktor", name = "ktor-server-netty", version = "2.3.8" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

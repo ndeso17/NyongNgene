@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mrksvt.nyongngene.ui.screens.*
 
+import androidx.navigation.navArgument
+
 @Composable
 fun AppNavHost(
     navController: NavHostController,
@@ -20,11 +22,30 @@ fun AppNavHost(
     ) {
         // Bottom Bar
         composable(Screen.Home.route) {
-            com.mrksvt.nyongngene.ui.screens.HomeScreen()
+            HomeScreen(
+                onMountainClick = { mountainName ->
+                    navController.navigate("trails/$mountainName")
+                }
+            )
+        }
+        
+        // Trail List Screen (Step 2)
+        composable(
+            route = "trails/{mountainName}",
+            arguments = listOf(navArgument("mountainName") { defaultValue = "" })
+        ) { entry ->
+            val mountainName = entry.arguments?.getString("mountainName") ?: ""
+            TrailListScreen(
+                mountainName = mountainName,
+                onTrailClick = { mapId ->
+                    navController.navigate("mapping?mapId=$mapId")
+                },
+                onBack = { navController.popBackStack() }
+            )
         }
         
         composable(Screen.Chat.route) {
-            com.mrksvt.nyongngene.ui.screens.ChatScreen(deepLinkChannelId = deepLinkChannelId)
+            ChatScreen(deepLinkChannelId = deepLinkChannelId)
         }
         
         composable(Screen.Emergency.route) {
@@ -32,7 +53,18 @@ fun AppNavHost(
         }
 
         // Drawer
-        composable(Screen.Mapping.route) { MappingScreen() }
+        composable(
+            route = "mapping?mapId={mapId}",
+            arguments = listOf(navArgument("mapId") { defaultValue = "" })
+        ) { entry ->
+            val mapId = entry.arguments?.getString("mapId") ?: ""
+            MappingScreen(
+                mapId = mapId,
+                onBack = { navController.popBackStack() }
+            )
+        }
+        
+        composable(Screen.OfflineMaps.route) { MapDownloadScreen() }
         composable(Screen.LoRaSettings.route) { LoRaSettingsScreen() }
         composable(Screen.Debug.route) { DebugScreen() }
         composable(Screen.Account.route) { AccountScreen() }

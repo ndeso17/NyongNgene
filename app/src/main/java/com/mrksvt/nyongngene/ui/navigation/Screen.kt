@@ -18,12 +18,13 @@ sealed class Screen(val route: String, val title: String, val icon: ImageVector?
 
     // Secondary (Drawer / Other)
     data object Mapping : Screen("mapping", "Mapping", Icons.Default.Place)
+    data object OfflineMaps : Screen("offline_maps", "Offline Maps", Icons.Default.Place)
     data object LoRaSettings : Screen("lora_settings", "LoRa Settings", Icons.Default.Settings)
     data object Debug : Screen("debug", "Debug", Icons.Default.Info)
     data object Account : Screen("account", "Account", Icons.Default.AccountCircle)
 
     companion object {
         fun getBottomBarItems() = listOf(Home, Chat, Emergency)
-        fun getDrawerItems() = listOf(Mapping, LoRaSettings, Debug, Account)
+        fun getDrawerItems() = listOf(Mapping, OfflineMaps, LoRaSettings, Debug, Account)
     }
 }

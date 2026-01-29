@@ -17,23 +17,7 @@ import com.mrksvt.nyongngene.ui.viewmodel.AppViewModelFactory
 import com.mrksvt.nyongngene.ui.viewmodel.ChatViewModel
 import com.mrksvt.nyongngene.ui.viewmodel.MainViewModel
 
-@Composable
-fun HomeScreen(
-    viewModel: MainViewModel = viewModel(factory = AppViewModelFactory.Factory)
-) {
-    val isConnected by viewModel.isLoRaConnected.collectAsState()
-    val snr by viewModel.snr.collectAsState()
-
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Home Screen (Map & Status)")
-            Text("LoRa Connected: $isConnected")
-            Text("Last SNR: $snr dB")
-        }
-    }
-}
-
-
+// HomeScreen moved to HomeScreen.kt
 
 @Composable
 fun EmergencyScreen() {
@@ -43,12 +27,7 @@ fun EmergencyScreen() {
     }
 }
 
-@Composable
-fun MappingScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Mapping Screen (Admin)")
-    }
-}
+// MappingScreen moved to MappingScreen.kt
 
 
 

@@ -25,9 +25,14 @@ fun MainScreen(deepLinkChannelId: String? = null) {
     val scope = rememberCoroutineScope()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    
+    // Disable drawer swipe on mapping screen
+    val isOnMappingScreen = currentDestination?.route?.startsWith("mapping") == true ||
+                            currentDestination?.route?.startsWith("trails") == true
 
     ModalNavigationDrawer(
         drawerState = drawerState,
+        gesturesEnabled = !isOnMappingScreen,
         drawerContent = {
             ModalDrawerSheet {
                 Text(
@@ -58,39 +63,43 @@ fun MainScreen(deepLinkChannelId: String? = null) {
     ) {
         Scaffold(
             topBar = {
-                CenterAlignedTopAppBar(
-                    title = { Text("NyongNgene") },
-                    navigationIcon = {
-                        IconButton(onClick = { scope.launch { drawerState.open() } }) {
-                            Icon(Icons.Default.Menu, contentDescription = "Menu")
+                if (!isOnMappingScreen) {
+                    CenterAlignedTopAppBar(
+                        title = { Text("NyongNgene") },
+                        navigationIcon = {
+                            IconButton(onClick = { scope.launch { drawerState.open() } }) {
+                                Icon(Icons.Default.Menu, contentDescription = "Menu")
+                            }
                         }
-                    }
-                )
+                    )
+                }
             },
             bottomBar = {
-                NavigationBar {
-                    Screen.getBottomBarItems().forEach { screen ->
-                        NavigationBarItem(
-                            icon = { Icon(screen.icon!!, contentDescription = null) },
-                            label = { Text(screen.title) },
-                            selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                            onClick = {
-                                navController.navigate(screen.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
+                if (!isOnMappingScreen) {
+                    NavigationBar {
+                        Screen.getBottomBarItems().forEach { screen ->
+                            NavigationBarItem(
+                                icon = { Icon(screen.icon!!, contentDescription = null) },
+                                label = { Text(screen.title) },
+                                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                                onClick = {
+                                    navController.navigate(screen.route) {
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            saveState = true
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
                                     }
-                                    launchSingleTop = true
-                                    restoreState = true
                                 }
-                            }
-                        )
+                            )
+                        }
                     }
                 }
             }
         ) { innerPadding ->
             AppNavHost(
                 navController = navController, 
-                modifier = Modifier.padding(innerPadding),
+                modifier = if (isOnMappingScreen) Modifier else Modifier.padding(innerPadding),
                 deepLinkChannelId = deepLinkChannelId
             )
         }
